@@ -1,6 +1,7 @@
 #include<iostream>
 #include<thread>
 #include<mutex>
+#include<functional>
 using namespace std;
 mutex m;
 void proc1(int a)
@@ -33,9 +34,9 @@ void proc2(int a)
 int main()
 {
     int a = 0;
-    thread t1(proc1, a);
+    thread t1(proc1, ref(a)); 
     t1.join();
-    //thread t2(proc2, a);
-    //t2.join();
+    thread t2(proc2, a);
+    t2.join();
     return 0;
 }
